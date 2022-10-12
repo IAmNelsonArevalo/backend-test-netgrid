@@ -4,10 +4,21 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
+/**
+ * @property mixed|string $name
+ * @property mixed|string $email
+ * @property mixed|string $password
+ * @property mixed|string $address
+ * @property mixed|string $complement
+ * @property mixed|string $city
+ * @property mixed|string $birthday
+ * @property int|mixed $status_id
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -41,4 +52,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * This function get the relationship between statuses table and users table, by the status_id foreign key.
+     * @return BelongsTo
+     */
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class, "status_id", "id");
+    }
 }
