@@ -18,6 +18,8 @@ use Laravel\Passport\HasApiTokens;
  * @property mixed|string $city
  * @property mixed|string $birthday
  * @property int|mixed $status_id
+ * @property mixed $id
+ * @method static where(string $string, int $active_status)
  */
 class User extends Authenticatable
 {
